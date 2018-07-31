@@ -1,14 +1,16 @@
 FROM ubuntu:16.04
 
-RUN apt-get update \
-    && apt-get -qq --no-install-recommends install \
+RUN apt-get update && \
+    apt-get -qq --no-install-recommends install \
         ca-certificates \
-        wget \
-    && rm -r /var/lib/apt/lists/*
+        libpcre16-3 \
+        libxcb1 \
+        wget && \
+    rm -r /var/lib/apt/lists/*
 
-RUN wget -q --content-disposition https://minergate.com/download/deb-cli \
-    && dpkg -i *.deb \
-    && rm *.deb
+RUN wget --content-disposition https://minergate.com/download/ubuntu-cli && \
+    dpkg -i *.deb && \
+    rm *.deb
 
 ENTRYPOINT ["minergate-cli"]
-CMD ["-user", "cryptocurrencies.miner@gmail.com", "-xmr"]
+CMD ["--user", "miltonmc@gmail.com", "--xmr"]
